@@ -77,7 +77,7 @@ cover:  #封面
 
 - [https://cocochimp.github.io/comment/](https://cocochimp.github.io/comment/)
 
-![image.png](https://cdn.nlark.com/yuque/0/2024/png/35382725/1705559244610-8175327f-84cf-491f-b78b-19c17183736c.png#averageHue=%23d6dd9d&clientId=uebc2fd6e-6c00-4&from=paste&height=836&id=ueedccb63&originHeight=1672&originWidth=2976&originalType=binary&ratio=2&rotation=0&showTitle=false&size=2212695&status=done&style=none&taskId=uf9ac87a0-7f4b-4a24-ba07-3ccc8936c02&title=&width=1488)
+![image.png](https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E6%89%98%E5%B0%94%E6%96%AF%E6%B3%B0.png)
 
 ## 友链 link
 
