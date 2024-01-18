@@ -1,0 +1,1214 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java集合 | cocochimpBlog</title><meta name="author" content="cocochimp"><meta name="copyright" content="cocochimp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深入学习：吃透Java集合框架！ 简易知识体系：    超详细体系架构图：   1、Collection Collection集合概述  是单例集合的顶层接口，它表示一组对象，这些对象也称为Collection的元素 JDK 不提供此接口的任何直接实现，它提供更具体的子接口（如Set和List）实现   返回值 方法名 解释    boolean add(E e) 添加元素   boolean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合">
+<meta property="og:url" content="http://example.com/2024/01/18/Java%E9%9B%86%E5%90%88/index.html">
+<meta property="og:site_name" content="cocochimpBlog">
+<meta property="og:description" content="深入学习：吃透Java集合框架！ 简易知识体系：    超详细体系架构图：   1、Collection Collection集合概述  是单例集合的顶层接口，它表示一组对象，这些对象也称为Collection的元素 JDK 不提供此接口的任何直接实现，它提供更具体的子接口（如Set和List）实现   返回值 方法名 解释    boolean add(E e) 添加元素   boolean">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png">
+<meta property="article:published_time" content="2024-01-18T02:59:47.232Z">
+<meta property="article:modified_time" content="2024-01-18T03:27:52.148Z">
+<meta property="article:author" content="cocochimp">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/01/18/Java%E9%9B%86%E5%90%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java集合',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-18 11:27:52'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="cocochimpBlog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/picture/"><i class="fa-fw iconfont icon-tupian"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-touxiang"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png')"><nav id="nav"><span id="blog-info"><a href="/" title="cocochimpBlog"><span class="site-name">cocochimpBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/picture/"><i class="fa-fw iconfont icon-tupian"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-touxiang"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java集合</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-18T02:59:47.232Z" title="发表于 2024-01-18 10:59:47">2024-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T03:27:52.148Z" title="更新于 2024-01-18 11:27:52">2024-01-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java集合"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>深入学习：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143700575">吃透Java集合框架！</a></li>
+<li><strong>简易知识体系：</strong></li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1697187591067-f5c2bd11-7e85-4aa8-8c36-4d7b25e4fae4.png#averageHue=%23f8f1f1&clientId=ud965fb95-e94f-4&id=tYgzb&originHeight=287&originWidth=745&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=uaeb321fe-9aeb-40c2-aec9-c46e342af5a&title="></p>
+<ul>
+<li><strong>超详细体系架构图：</strong></li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1694090838773-d351e02b-570b-468e-8e7b-de1f3b5c1af4.png#averageHue=%23f6f6f6&clientId=ud63063b1-26c1-4&from=paste&height=574&id=zz03N&originHeight=717&originWidth=978&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=138841&status=done&style=none&taskId=udd42561e-42e3-4463-9e1a-1dadb71b17b&title=&width=782.4" alt="image.png"></p>
+<h1 id="1、Collection"><a href="#1、Collection" class="headerlink" title="1、Collection"></a>1、Collection</h1><ul>
+<li>Collection集合概述 <ul>
+<li>是单例集合的顶层接口，它表示一组对象，这些对象也称为Collection的元素</li>
+<li>JDK 不提供此接口的任何直接实现，它提供更具体的子接口（如<strong>Set</strong>和<strong>List</strong>）实现<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>add(E e)</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>remove(Object o)</td>
+<td>从集合中移除指定的元素</td>
+</tr>
+<tr>
+<td>void</td>
+<td>clear()</td>
+<td>清空集合中的元素</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>contains(Object o)</td>
+<td>判断集合中是否存在指定的元素</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>isEmpty()</td>
+<td>判断集合是否为空</td>
+</tr>
+<tr>
+<td>int</td>
+<td>size()</td>
+<td>集合的长度，也就是集合中元素的个数</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建Collection集合的对象</span></span><br><span class="line">Collection&lt;String&gt; c = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line"><span class="comment">//添加元素：boolean add(E e)</span></span><br><span class="line">c.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">c.add(<span class="string">&quot;world&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-1-iterator-迭代器"><a href="#1-1-iterator-迭代器" class="headerlink" title="1.1 iterator 迭代器"></a>1.1 iterator 迭代器</h2><ul>
+<li>迭代器：集合的专用遍历方式<ul>
+<li>Iterator iterator()：返回此集合中元素的迭代器，通过集合的iterator()方法得到</li>
+<li>迭代器是通过**集合的iterator()**方法得到的，所以我们说它是依赖于集合而存在的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1692345384687-e4620daa-4b8b-457b-aeda-729c1653dc89.png#averageHue=%23343331&clientId=u04d8008e-237f-4&from=paste&height=180&id=Ujpw6&originHeight=225&originWidth=230&originalType=binary&ratio=1&rotation=0&showTitle=false&size=6116&status=done&style=none&taskId=u6658fc21-29ba-4e2d-b68e-98e4f2e12e2&title=&width=184" alt="image.png"></p>
+<ul>
+<li>注：一共就这四个方法：<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>hasNext()</td>
+<td>如果集合中存在元素，则返回true</td>
+</tr>
+<tr>
+<td>E</td>
+<td>next()</td>
+<td>返回集合的下一个元素</td>
+</tr>
+<tr>
+<td>void</td>
+<td>remove()</td>
+<td>删除next()返回的最后一个元素</td>
+</tr>
+<tr>
+<td>void</td>
+<td>forEachRemaining()</td>
+<td>对集合的每个剩余元素执行指定的操作</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; num = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">//创建一个ArrayList</span></span><br><span class="line">ArrayList&lt;Integer&gt; nums = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(num);</span><br><span class="line">Iterator&lt;Integer&gt; iterate = nums.iterator(); <span class="comment">//创建Iterator的实例</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">number</span> <span class="operator">=</span> iterate.next(); <span class="comment">//1、使用next()方法</span></span><br><span class="line">iterate.remove(); <span class="comment">//2、使用remove()方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(iterate.hasNext()) &#123; <span class="comment">//3、使用hasNext()方法</span></span><br><span class="line">    <span class="comment">//4、使用forEachRemaining()方法</span></span><br><span class="line">    iterate.forEachRemaining((value) -&gt; System.out.print(value + <span class="string">&quot;, &quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、List-有序集合"><a href="#2、List-有序集合" class="headerlink" title="2、List 有序集合"></a>2、List 有序集合</h1><ul>
+<li>概述：<strong>有序集合</strong>(序列)，用户可以精确控制列表中每个元素的插入位置。用户可以通过整数索引访问元素，并搜索列表中的元素。</li>
+<li>List集合特点：有索引、允许重复的元素、元素存取有序</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1692347100566-6a739527-986c-400e-8800-e56118cace9e.png#averageHue=%2334302e&clientId=u04d8008e-237f-4&from=paste&height=325&id=lXo0N&originHeight=406&originWidth=646&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25315&status=done&style=none&taskId=ue60b7ed4-0c3b-45b5-a760-b6664c07c07&title=&width=516.8" alt="image.png"></p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void</td>
+<td>add(int index,E element)</td>
+<td>在此集合中的指定位置<strong>插入</strong>指定的元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>remove(int index)</td>
+<td><strong>删除</strong>指定索引处的元素，返回被删除的元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>set(int index,E element)</td>
+<td><strong>修改</strong>指定索引处的元素，返回被修改的元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>get(int index)</td>
+<td>返回指定索引处的元素</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>列表迭代器</p>
+</blockquote>
+<ul>
+<li>ListIterator介绍 <ul>
+<li>通过List集合的listIterator()方法得到，所以说它是List集合特有的迭代器</li>
+<li>用于允许程序员沿任一方向遍历的列表迭代器，在迭代期间修改列表，并获取列表中迭代器的当前位置<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;(); <span class="comment">//创建集合对象</span></span><br><span class="line">list.add(<span class="string">&quot;hello&quot;</span>); <span class="comment">//添加元素</span></span><br><span class="line">list.add(<span class="string">&quot;world&quot;</span>);</span><br><span class="line"></span><br><span class="line">ListIterator&lt;String&gt; lit = list.listIterator(); <span class="comment">//获取列表迭代器</span></span><br><span class="line"><span class="keyword">while</span> (lit.hasNext()) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> lit.next();</span><br><span class="line">    <span class="keyword">if</span>(s.equals(<span class="string">&quot;world&quot;</span>))  lit.add(<span class="string">&quot;javaee&quot;</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-1-ArrayList-⭐"><a href="#2-1-ArrayList-⭐" class="headerlink" title="2.1 ArrayList ⭐"></a>2.1 ArrayList ⭐</h2><ul>
+<li>ArrayList：底层是<strong>数组结构</strong>实现，<strong>查询快、增删慢</strong> （底层：动态数组）</li>
+<li>泛型的使用：约束集合中存储元素的数据类型 <table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>void</td>
+<td>add(E element)</td>
+<td></td>
+</tr>
+<tr>
+<td>add(int index, E element)</td>
+<td>将指定元素追加到ArrayList的末尾</td>
+<td></td>
+</tr>
+<tr>
+<td>在指定位置插入指定元素</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>remove(Object element)</td>
+<td></td>
+</tr>
+<tr>
+<td>remove(int index)</td>
+<td>从ArrayList中移除指定元素</td>
+<td></td>
+</tr>
+<tr>
+<td>移除指定位置的元素</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>get(int index)</td>
+<td>获取指定位置的元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>set(int index, E element)</td>
+<td>将指定位置的元素替换为新元素，</td>
+</tr>
+<tr>
+<td>并返回原来位置元素的值。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建ArrayList集合对象</span></span><br><span class="line">ArrayList&lt;Student&gt; array = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Student&gt;();</span><br><span class="line"><span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;林青霞&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张曼玉&quot;</span>, <span class="number">35</span>);</span><br><span class="line">array.add(s1);</span><br><span class="line">array.add(s2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//迭代器：集合特有的遍历方式</span></span><br><span class="line">Iterator&lt;Student&gt; it = array.iterator();</span><br><span class="line"><span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">    <span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> it.next();</span><br><span class="line">    System.out.println(s.getName() + <span class="string">&quot;,&quot;</span> + s.getAge());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//普通for：带有索引的遍历方式</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;array.size(); i++) &#123;</span><br><span class="line">    <span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> array.get(i);</span><br><span class="line">    System.out.println(s.getName() + <span class="string">&quot;,&quot;</span> + s.getAge());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//增强for：最方便的遍历方式</span></span><br><span class="line"><span class="keyword">for</span>(Student s : array) &#123;</span><br><span class="line">    System.out.println(s.getName() + <span class="string">&quot;,&quot;</span> + s.getAge());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>:::tips</p>
+<ul>
+<li>增加（add）操作：在末尾添加元素的时间复杂度为O(1)，如果需要在中间或开头插入元素，则为O(n)。</li>
+<li>删除（remove）操作：删除指定索引的元素的时间复杂度为O(n)，因为需要移动后续元素。</li>
+<li>修改（set）操作：修改指定索引位置的元素的时间复杂度为O(1)。</li>
+<li>查找（get）操作：根据索引获取元素的时间复杂度为O(1)。<br>:::</li>
+</ul>
+<h2 id="2-2-LinkedList"><a href="#2-2-LinkedList" class="headerlink" title="2.2 LinkedList"></a>2.2 LinkedList</h2><ul>
+<li>LinkedList：底层是<strong>链表结构</strong>实现，<strong>查询慢，增删快</strong>（底层：双向链表）<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>void</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>add(E element)</td>
+<td></td>
+</tr>
+<tr>
+<td>add(int index, E element)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>addFirst(E element)</td>
+<td>元素插入到链表末尾</td>
+<td></td>
+</tr>
+<tr>
+<td>指定位置插入元素</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>在链表开头插入元素（addLast）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>remove(int index)</td>
+<td></td>
+</tr>
+<tr>
+<td>remove(E element)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>removeFirst()</td>
+<td>移除指定位置的元素，并返回被移除的元素</td>
+<td></td>
+</tr>
+<tr>
+<td>从链表中移除指定元素</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>移除并返回链表第一个元素（removeLast）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>void</td>
+<td>get(int index)</td>
+<td></td>
+</tr>
+<tr>
+<td>getFirst()</td>
+<td>获取指定位置的元素，并返回其值。</td>
+<td></td>
+</tr>
+<tr>
+<td>返回链表的第一个元素（getLast）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>set(int index, E element)</td>
+<td>将指定位置的元素替换为新元素，并返回原来位置元素的值。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>:::tips</p>
+<ul>
+<li>增加（add）操作：在末尾添加元素的时间复杂度为O(1)，如果需要在中间或开头插入元素，则为O(n)。</li>
+<li>删除（remove）操作：删除指定节点的时间复杂度为O(1)。</li>
+<li>修改（set）操作：修改指定节点的元素的时间复杂度为O(1)。</li>
+<li>查找（get）操作：根据索引获取元素的时间复杂度为O(n)。<br>:::</li>
+</ul>
+<h2 id="2-3-Queue"><a href="#2-3-Queue" class="headerlink" title="2.3 Queue"></a>2.3 Queue</h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1692347766206-18a8f84f-4d30-43c6-930e-172737b142c7.png#averageHue=%2333302e&clientId=u04d8008e-237f-4&from=paste&height=276&id=gOCiB&originHeight=345&originWidth=648&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20852&status=done&style=none&taskId=uc31523c5-95d7-4c83-8419-a37d8ae37ea&title=&width=518.4" alt="image.png"></p>
+<blockquote>
+<p>1、PriorityQueue</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>offer(E e)</td>
+<td></td>
+</tr>
+<tr>
+<td>add(E e)</td>
+<td>都是插入到优先级队列中</td>
+<td></td>
+</tr>
+<tr>
+<td>差别：队列已满时，offer返回false；add抛出异常</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>poll()</td>
+<td>检索并移除队列中的头部元素</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>peek()</td>
+<td></td>
+</tr>
+<tr>
+<td>element()</td>
+<td>检索但不移除队列中的头部元素</td>
+<td></td>
+</tr>
+<tr>
+<td>差别：队列为空时，peek返回null；element抛出异常</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>remove(Object o)</td>
+<td>移除队列中的指定元素</td>
+</tr>
+</tbody></table>
+<h1 id="3、Set-无序集合"><a href="#3、Set-无序集合" class="headerlink" title="3、Set 无序集合"></a>3、Set 无序集合</h1><ul>
+<li>Set集合的特点：元素存取无序、没有索引(只能<strong>迭代器</strong>&#x2F;<strong>增强for循环</strong>遍历)、不能存储重复元素</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1692347274507-060b3c7c-400a-4407-b25b-4daf8d8c6aa1.png#averageHue=%23332f2e&clientId=u04d8008e-237f-4&from=paste&height=312&id=fUD8W&originHeight=390&originWidth=624&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23468&status=done&style=none&taskId=u0e250c5f-1987-4db4-a6ec-3a765dd641a&title=&width=499.2" alt="image.png"></p>
+<blockquote>
+<p>哈希值</p>
+</blockquote>
+<ul>
+<li>Hash值：是JDK根据对象的<strong>地址&#x2F;字符串&#x2F;数字</strong>算出来的int类型的数值 </li>
+<li>如何获取哈希值：Object类中的public int hashCode()：返回对象的哈希码值 </li>
+<li>哈希值的特点 <ul>
+<li>同一个对象多次调用hashCode()方法返回的哈希值是相同的</li>
+<li>默认情况下，不同对象的哈希值是不同的。而重写hashCode()方法，可以实现让不同对象的哈希值相同</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-1-HashSet-⭐"><a href="#3-1-HashSet-⭐" class="headerlink" title="3.1 HashSet ⭐"></a>3.1 HashSet ⭐</h2><p>:::tips<br>HashSet集合特点： </p>
+<ul>
+<li><p>底层数据结构是哈希表</p>
+</li>
+<li><p>对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致</p>
+</li>
+<li><p>没有带索引的方法，所以不能使用普通for循环遍历</p>
+</li>
+<li><p>由于是Set集合，所以是不包含重复元素的集合<br>:::</p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>add(E element)</td>
+<td></td>
+</tr>
+<tr>
+<td>addAll(Collection&lt;? extends E&gt; collection)</td>
+<td>将指定元素添加到HashSet中</td>
+<td></td>
+</tr>
+<tr>
+<td>将指定集合中所有元素添加到HashSet中</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>remove(Object element)</td>
+<td></td>
+</tr>
+<tr>
+<td>removeAll(Collection&lt;?&gt; collection)</td>
+<td>从HashSet中移除指定元素</td>
+<td></td>
+</tr>
+<tr>
+<td>从HashSet中移除与指定集合中元素相同的所有元素</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>retainAll(Collection&lt;?&gt; collection)</td>
+<td>仅保留HashSet中与指定集合中元素相同的元素，移除其他元素。</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>containsAll(Collection&lt;?&gt; collection)</td>
+<td>判断HashSet是否包含指定集合中的所有元素</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>哈希表图示：**数组+链表 **结构</p>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1697187591078-55b8d3ae-950f-492c-aeff-86dddb918421.png#averageHue=%23f7f2f2&clientId=ud965fb95-e94f-4&id=bz1bS&originHeight=262&originWidth=777&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u3c9c52fc-78b6-408c-953d-9fa6bc73bc2&title="><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686289066063-d9156d38-6433-4cea-94b7-4da797d7a12f.png#averageHue=%23f6f4f4&clientId=u72ac83f4-7ae1-4&from=drop&id=c3jS0&originHeight=370&originWidth=954&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=63438&status=done&style=none&taskId=u2124de98-7638-4ada-9cd2-6c48d390f14&title=" alt="20210105174428536.png"></p>
+<ul>
+<li><p>当链表元素&gt;&#x3D;8时，链表进化成红黑树（增删慢，要维护树结构，但查询效率高！）<br>:::tips</p>
+</li>
+<li><p>增加（add）操作：添加元素的时间复杂度为O(1)。</p>
+</li>
+<li><p>删除（remove）操作：删除元素的时间复杂度为O(1)。</p>
+</li>
+<li><p>修改（set）操作：HashSet不提供直接修改操作，需要先删除再添加。</p>
+</li>
+<li><p>查找（contains）操作：判断元素是否存在的时间复杂度为O(1)。<br>:::</p>
+</li>
+</ul>
+<h2 id="3-2-TreeSet"><a href="#3-2-TreeSet" class="headerlink" title="3.2 TreeSet"></a>3.2 TreeSet</h2><ul>
+<li><p>TreeSet：元素有序，可以按照一定的规则进行排序，具体排序方式取决于构造方法 </p>
+<table>
+<thead>
+<tr>
+<th><strong>构造方法</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TreeSet()</td>
+<td>根据其元素的<strong>自然排序</strong>进行排序</td>
+</tr>
+<tr>
+<td>TreeSet(Comparator comparator)</td>
+<td>根据指定的<strong>比较器</strong>进行排序</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>TreeSet特点：没有索引方法(不能使用普通for循环遍历)、Set集合(不包含重复元素集合)</p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>add(E element)</td>
+<td>将指定元素添加到TreeSet中</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>remove(Object element)</td>
+<td>从TreeSet中移除指定元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>first()</td>
+<td></td>
+</tr>
+<tr>
+<td>last()</td>
+<td>返回TreeSet中的第一个（最小）元素。</td>
+<td></td>
+</tr>
+<tr>
+<td>返回TreeSet中的最后一个（最大）元素。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>ceiling(E element)</td>
+<td></td>
+</tr>
+<tr>
+<td>floor(E element)</td>
+<td>返回TreeSet中大于等于给定元素的最小元素。</td>
+<td></td>
+</tr>
+<tr>
+<td>返回TreeSet中小于等于给定元素的最大元素。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>pollFirst()</td>
+<td></td>
+</tr>
+<tr>
+<td>pollLast()</td>
+<td>移除并返回TreeSet中的第一个（最小）元素。</td>
+<td></td>
+</tr>
+<tr>
+<td>移除并返回TreeSet中的最后一个（最大）元素。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NavigableSet<E></td>
+<td>descendingSet()</td>
+<td>返回TreeSet的逆序视图，其中元素按降序排列。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>:::tips</p>
+<ul>
+<li>增加（add）操作：添加元素的时间复杂度为O(log n)。</li>
+<li>删除（remove）操作：删除元素的时间复杂度为O(log n)。</li>
+<li>修改（set）操作：TreeSet不提供直接修改操作，需要先删除再添加。</li>
+<li>查找（contains）操作：判断元素是否存在的时间复杂度为O(log n)。<br>:::</li>
+</ul>
+<blockquote>
+<p>自然排序Comparable &#x2F; 比较器排序Comparator</p>
+</blockquote>
+<ul>
+<li>案例需求 <ul>
+<li>存储学生对象并遍历，创建TreeSet集合使用无参构造方法</li>
+<li>要求：按照年龄从小到大排序，年龄相同时，按照姓名的字母顺序排序</li>
+</ul>
+</li>
+<li>实现步骤 <ul>
+<li>用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的</li>
+<li>自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法</li>
+<li>重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写<br>:::tips</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>自然排序Comparable的使用：</p>
+<ul>
+<li>用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的</li>
+<li>自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法</li>
+<li>重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写<br>:::<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自然排序 Comparator</span></span><br><span class="line">TreeSet&lt;Student&gt; ts = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;Student&gt;();</span><br></pre></td></tr></table></figure>
+:::tips</li>
+</ul>
+</li>
+<li><p>比较器排序Comparator的使用：</p>
+<ul>
+<li>用TreeSet集合存储自定义对象，<strong>带参构造方法</strong>使用的是比较器排序对元素进行排序的</li>
+<li>比较器排序，就是让集合构造方法接收Comparator的实现类对象，重写compare(T o1,T o2)方法</li>
+<li>重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写<br>:::<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//比较器 Comparable</span></span><br><span class="line">TreeSet&lt;Student&gt; ts = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;Student&gt;(<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Student&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Student s1, Student s2)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> s1.getAge() - s2.getAge(); <span class="comment">//主要条件</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">num2</span> <span class="operator">=</span> num == <span class="number">0</span> ? s1.getName().compareTo(s2.getName()):num; <span class="comment">//次要条件</span></span><br><span class="line">    <span class="keyword">return</span> num2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="3-3-LinkedHashSet"><a href="#3-3-LinkedHashSet" class="headerlink" title="3.3 LinkedHashSet"></a>3.3 LinkedHashSet</h2><ul>
+<li>LinkedHashSet集合特点 <ul>
+<li>哈希表和链表实现的Set接口，具有可预测的迭代次序</li>
+<li>由链表保证元素有序，也就是说元素的存储和取出顺序是一致的</li>
+<li>由哈希表保证元素唯一，也就是说没有重复的元素<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>add(E element)</td>
+<td>将指定元素添加到LinkedHashSet中</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>remove(Object element)</td>
+<td>从LinkedHashSet中移除指定元素</td>
+</tr>
+<tr>
+<td>E</td>
+<td>get(int index)</td>
+<td>根据索引位置获取LinkedHashSet中的元素。</td>
+</tr>
+<tr>
+<td>Iterator<E></td>
+<td>iterator()</td>
+<td>遍历LinkedHashSet中的元素</td>
+</tr>
+<tr>
+<td>Object[]</td>
+<td>toArray()</td>
+<td>将LinkedHashSet转换为一个对象数组</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>addAll(Collection&lt;? extends E&gt; collection)</td>
+<td>将指定集合中的所有元素添加到LinkedHashSet中</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>retainAll(Collection&lt;?&gt; collection)</td>
+<td>仅保留LinkedHashSet中与指定集合中的元素相同的元素，移除其他元素。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LinkedHashSet&lt;String&gt; linkedHashSet = <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;String&gt;();</span><br><span class="line"><span class="comment">//添加元素</span></span><br><span class="line">linkedHashSet.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">linkedHashSet.add(<span class="string">&quot;world&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(String s : linkedHashSet) </span><br><span class="line">    System.out.println(s);</span><br></pre></td></tr></table></figure>
+
+<h1 id="4、Map-键值集合"><a href="#4、Map-键值集合" class="headerlink" title="4、Map 键值集合"></a>4、Map 键值集合</h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1692348528480-a3aa549e-6406-4b56-8e0d-011acc815d14.png#averageHue=%23373230&clientId=u04d8008e-237f-4&from=drop&height=316&id=RoLuc&originHeight=1046&originWidth=1872&originalType=binary&ratio=1&rotation=0&showTitle=false&size=710965&status=done&style=none&taskId=u964c333a-3258-44e9-beb3-a35f70e9c82&title=&width=566.3999938964844" alt="image.png"></p>
+<ul>
+<li>Map集合特点 ：key:value对映射关系、键不能重复，值可以重复、元素存取无序</li>
+</ul>
+<h2 id="4-1-HashMap-⭐"><a href="#4-1-HashMap-⭐" class="headerlink" title="4.1 HashMap ⭐"></a>4.1 HashMap ⭐</h2><p>:::tips<br><strong>概述：</strong>HashMap使用哈希表来存储数据，通过计算键的哈希值来确定其在内部数组中的存储位置。</p>
+<ol>
+<li>HashMap的键是唯一的，如果插入相同的键，新的值会覆盖旧的值。它不保证键值对的顺序，也不保证插入顺序和访问顺序一致。</li>
+<li>使用HashMap可以快速地插入、获取、更新和删除键值对，其时间复杂度为O(1)。它是线程不安全的，需要在多线程环境下使用可以使用ConcurrentHashMap。</li>
+<li>HashMap在遍历时，不保证元素的顺序，如果需要有序遍历，可以考虑使用LinkedHashMap。此外，由于哈希碰撞的存在，当键的哈希值相同时，会使用链表或红黑树等数据结构来解决冲突，以保证性能。<br>:::<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V</td>
+<td>put(K key, V value)</td>
+<td>将指定的键值对添加到HashMap中【键存在：并返回之前关联的值 &#x2F; 键不存在：则返回null】</td>
+</tr>
+<tr>
+<td>V</td>
+<td>remove(Object key)</td>
+<td>移除HashMap中指定键对应的键值对，并返回之前关联的值。</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>containsKey(Object key)</td>
+<td></td>
+</tr>
+<tr>
+<td>containsValue(Object value)</td>
+<td>判断HashMap中是否包含指定键 &#x2F; 值。</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<ul>
+<li>集合的<strong>获取功能</strong><table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V</td>
+<td>get(Object key)</td>
+<td>根据<strong>键</strong>获取<strong>值</strong></td>
+</tr>
+<tr>
+<td>Set<K></td>
+<td>keySet()</td>
+<td>获取<strong>所有键</strong>的集合</td>
+</tr>
+<tr>
+<td>Collection<V></td>
+<td>values()</td>
+<td>获取<strong>所有值</strong>的集合</td>
+</tr>
+<tr>
+<td>Set<K></td>
+<td>entrySet()</td>
+<td>获取<strong>所有键值对对象</strong>的集合</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, String&gt;();</span><br><span class="line">map.put(<span class="string">&quot;张无忌&quot;</span>, <span class="string">&quot;赵敏&quot;</span>);</span><br><span class="line">map.put(<span class="string">&quot;郭靖&quot;</span>, <span class="string">&quot;黄蓉&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//V get(Object key):根据键获取值</span></span><br><span class="line">System.out.println(map.get(<span class="string">&quot;张无忌&quot;</span>));</span><br><span class="line">System.out.println(map.get(<span class="string">&quot;张三丰&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//Set&lt;K&gt; keySet():获取所有键的集合</span></span><br><span class="line">Set&lt;String&gt; keySet = map.keySet();</span><br><span class="line"><span class="keyword">for</span>(String key : keySet) </span><br><span class="line">	<span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> map.get(key); <span class="comment">//获得到value</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Collection&lt;V&gt; values():获取所有值的集合</span></span><br><span class="line">Collection&lt;String&gt; values = map.values();</span><br><span class="line"><span class="keyword">for</span>(String value : values) </span><br><span class="line">    System.out.println(value);</span><br></pre></td></tr></table></figure>
+<p>:::tips</p>
+<ul>
+<li>增加（put）操作：添加键值对的时间复杂度为O(1)。</li>
+<li>删除（remove）操作：删除键值对的时间复杂度为O(1)。</li>
+<li>修改（put）操作：修改键值对的时间复杂度为O(1)。</li>
+<li>查找（get）操作：根据键获取值的时间复杂度为O(1)。<br>:::</li>
+</ul>
+<blockquote>
+<p>1、String值是Student</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HashMap&lt;String, Student&gt; hm = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Student&gt;();</span><br><span class="line"><span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;林青霞&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张曼玉&quot;</span>, <span class="number">35</span>);</span><br><span class="line">hm.put(<span class="string">&quot;itheima001&quot;</span>, s1);</span><br><span class="line">hm.put(<span class="string">&quot;itheima002&quot;</span>, s2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式1：键找值</span></span><br><span class="line">Set&lt;String&gt; keySet = hm.keySet();</span><br><span class="line"><span class="keyword">for</span> (String key : keySet) &#123;</span><br><span class="line">    <span class="type">Student</span> <span class="variable">value</span> <span class="operator">=</span> hm.get(key);</span><br><span class="line">    System.out.println(key + <span class="string">&quot;,&quot;</span> + value.getName() + <span class="string">&quot;,&quot;</span> + value.getAge());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式2：键值对对象找键和值</span></span><br><span class="line">Set&lt;Map.Entry&lt;String, Student&gt;&gt; entrySet = hm.entrySet();</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Student&gt; me : entrySet) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> me.getKey();</span><br><span class="line">    <span class="type">Student</span> <span class="variable">value</span> <span class="operator">=</span> me.getValue();</span><br><span class="line">    System.out.println(key + <span class="string">&quot;,&quot;</span> + value.getName() + <span class="string">&quot;,&quot;</span> + value.getAge());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2、Student值是String</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HashMap&lt;Student, String&gt; hm = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Student, String&gt;();</span><br><span class="line"><span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;林青霞&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张曼玉&quot;</span>, <span class="number">35</span>);</span><br><span class="line">hm.put(s1, <span class="string">&quot;西安&quot;</span>);</span><br><span class="line">hm.put(s2, <span class="string">&quot;武汉&quot;</span>);</span><br><span class="line"></span><br><span class="line">Set&lt;Student&gt; keySet = hm.keySet();</span><br><span class="line"><span class="keyword">for</span> (Student key : keySet) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> hm.get(key);</span><br><span class="line">    System.out.println(key.getName() + <span class="string">&quot;,&quot;</span> + key.getAge() + <span class="string">&quot;,&quot;</span> +</span><br><span class="line">                       value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-TreeMap-LinkedHashMap"><a href="#4-2-TreeMap-LinkedHashMap" class="headerlink" title="4.2 TreeMap &#x2F; LinkedHashMap"></a>4.2 TreeMap &#x2F; LinkedHashMap</h2><ul>
+<li><p>TreeMap：</p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>K</td>
+<td>firstKey()</td>
+<td></td>
+</tr>
+<tr>
+<td>lastKey()</td>
+<td>返回TreeMap中最小的键</td>
+<td></td>
+</tr>
+<tr>
+<td>返回TreeMap中最大的键</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>K</td>
+<td>higherKey(K key)</td>
+<td></td>
+</tr>
+<tr>
+<td>lowerKey(K key)</td>
+<td>返回TreeMap中严格大于给定键的最小键；</td>
+<td></td>
+</tr>
+<tr>
+<td>返回TreeMap中严格小于给定键的最大键；</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>K</td>
+<td>ceilingKey(K key)</td>
+<td></td>
+</tr>
+<tr>
+<td>floorKey(K key)</td>
+<td>返回TreeMap中大于或等于给定键的最小键；</td>
+<td></td>
+</tr>
+<tr>
+<td>返回TreeMap中小于或等于给定键的最大键；</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Map.Entry&lt;K, V&gt;</td>
+<td>pollFirstEntry()</td>
+<td></td>
+</tr>
+<tr>
+<td>pollLastEntry()</td>
+<td>移除并返回TreeMap中最小的键值对</td>
+<td></td>
+</tr>
+<tr>
+<td>移除并返回TreeMap中最大的键值对</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>LinkedHashMap：</p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>removeEldestEntry(Map.Entry&lt;K, V&gt; eldest)</td>
+<td>在插入新的键值对之后，判断是否需要移除最老的键值对。默认实现为始终返回false，即不移除最老的键值对。如果需要实现移除策略，可以重写该方法。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>:::tips</p>
+<ul>
+<li>增加（put）操作：添加键值对的时间复杂度为O(log n)。</li>
+<li>删除（remove）操作：删除键值对的时间复杂度为O(log n)。</li>
+<li>修改（put）操作：修改键值对的时间复杂度为O(log n)。</li>
+<li>查找（get）操作：根据键获取值的时间复杂度为O(log n)。<br>:::</li>
+</ul>
+<h1 id="5、工具类"><a href="#5、工具类" class="headerlink" title="5、工具类"></a>5、工具类</h1><ul>
+<li>工具类设计思想 <ul>
+<li>构造方法用private修饰</li>
+<li>成员用public static修饰</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-1-Collections"><a href="#5-1-Collections" class="headerlink" title="5.1 Collections"></a>5.1 Collections</h2><blockquote>
+<p>1、Collections概述和使用</p>
+</blockquote>
+<ul>
+<li>Collections类的作用<br>是针对集合操作的工具类 </li>
+<li>Collections类常用方法 <table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static void sort(List list)</td>
+<td>升序</td>
+</tr>
+<tr>
+<td>public static void reverse(List list)</td>
+<td>反转</td>
+</tr>
+<tr>
+<td>public static void shuffle(List list)</td>
+<td>随机排序</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collections.sort(list);</span><br><span class="line">Collections.reverse(list);</span><br><span class="line">Collections.shuffle(list);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>详细方法：<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void</td>
+<td>sort(list)</td>
+<td>对指定的List升序排序，</td>
+</tr>
+<tr>
+<td>要求元素的类型实现Comparable接口</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>void</td>
+<td>reverse(list)</td>
+<td>反转指定List中元素的顺序</td>
+</tr>
+<tr>
+<td>int</td>
+<td>binarySearch(list, key)</td>
+<td>使用二分查找算法查找已排序List指定的关键字。返回关键字在List中的索引，如果找不到则返回负数</td>
+</tr>
+<tr>
+<td>void</td>
+<td>shuffle(list)</td>
+<td>随机排列指定List中的元素</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>addAll(collection, elements)</td>
+<td>将指定元素添加到指定Collection中。</td>
+</tr>
+<tr>
+<td>如果Collection发生改变，则返回true。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>T</td>
+<td>max(collection)</td>
+<td></td>
+</tr>
+<tr>
+<td>min(collection)</td>
+<td>返回集合中的最大&#x2F;最小元素</td>
+<td></td>
+</tr>
+<tr>
+<td>int</td>
+<td>frequency(collection, object)</td>
+<td>返回指定对象在指定</td>
+</tr>
+<tr>
+<td>Collection中出现的次数</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Object[]</td>
+<td>toArray(collection)</td>
+<td>将指定Collection转换为数组</td>
+</tr>
+<tr>
+<td>Collection<T></td>
+<td>synchronizedCollection(collection)</td>
+<td>返回指定Collection的同步</td>
+</tr>
+<tr>
+<td>（线程安全）版本</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="5-2-Arrays"><a href="#5-2-Arrays" class="headerlink" title="5.2 Arrays"></a>5.2 Arrays</h2><ul>
+<li><p>Arrays的常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static String toString(int[] a)</td>
+<td>返回指定数组的内容的字符串表达形式</td>
+</tr>
+<tr>
+<td>public static void sort(int[] a)</td>
+<td>按照数字顺序排列指定的数组</td>
+</tr>
+<tr>
+<td><strong>public static List&lt;?&gt; asList(?)</strong></td>
+<td><strong>将对象数组转为List集合</strong></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>详细方法</p>
+<table>
+<thead>
+<tr>
+<th><strong>返回值</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>解释</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String</td>
+<td>toString(array)</td>
+<td>将指定数组转换为字符串表示形式。返回的字符串包含数组的元素，以逗号分隔，并使用方括号括起来。</td>
+</tr>
+<tr>
+<td>List<T></td>
+<td>asList(array)</td>
+<td>将数组转换为List集合</td>
+</tr>
+<tr>
+<td>Stream<T></td>
+<td>stream(array)</td>
+<td>将数组转换为流（Stream）对象，</td>
+</tr>
+<tr>
+<td>可以进行各种流操作。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>void</td>
+<td>sort(array)</td>
+<td>对数组进行升序排序。要求数组元素的类型实现Comparable接口。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>binarySearch(array, key)</td>
+<td>返回栈顶的元素，但不移除它</td>
+</tr>
+<tr>
+<td>T[]</td>
+<td>copyOf(original, newLength)</td>
+<td>对集合的每个剩余元素执行指定的操作</td>
+</tr>
+<tr>
+<td>void</td>
+<td>fill(array, value)</td>
+<td>将指定值填充到数组的每个元素中</td>
+</tr>
+<tr>
+<td>int</td>
+<td>hashCode(array)</td>
+<td>返回指定数组的哈希码值</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="【拓展】"><a href="#【拓展】" class="headerlink" title="【拓展】"></a>【拓展】</h1><h2 id="HashTable-ConcurrentHashMap"><a href="#HashTable-ConcurrentHashMap" class="headerlink" title="HashTable&#x2F;ConcurrentHashMap"></a>HashTable&#x2F;ConcurrentHashMap</h2><ul>
+<li>集合体系架构图：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1694220663655-e000d78c-654f-4616-b904-f4875c3eb689.png#averageHue=%23fcfcfa&from=url&id=pNtMv&originHeight=578&originWidth=1080&originalType=binary&ratio=1&rotation=0&showTitle=false&size=208718&status=done&style=none&title=" alt="mmexport1694220637139.png"></p>
+<ul>
+<li>HashTable存储发生哈希碰撞：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1694221561795-34c9d2d2-233d-45a0-93dc-0dcf5873c557.png#averageHue=%23faf4ea&from=url&id=iKzoB&originHeight=241&originWidth=421&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24764&status=done&style=none&title=" alt="mmexport1694221541440.png"></p>
+<ul>
+<li>ConcurrentHashMap存储发生哈希碰撞：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1694221582538-35559e6b-e671-42ee-b7fd-fc1ccfa0875b.png#averageHue=%23f1efee&from=url&id=xp9W6&originHeight=371&originWidth=663&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38906&status=done&style=none&title=" alt="mmexport1694221547566.png"><br>当冲突链表达到一定长度时，链表会转换成红黑树。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">cocochimp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/18/Java%E9%9B%86%E5%90%88/">http://example.com/2024/01/18/Java集合/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">cocochimpBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java多线程</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/18/Java%E5%9F%BA%E7%A1%80:%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" title="Java基础/高级特性"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E5%9F%BA%E7%A1%80.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java基础/高级特性</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-18</div><div class="title">Java多线程</div></div></a></div><div><a href="/2024/01/18/Java%E5%9F%BA%E7%A1%80:%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" title="Java基础&#x2F;高级特性"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E5%9F%BA%E7%A1%80.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-01-18</div><div class="title">Java基础&#x2F;高级特性</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">cocochimp</div><div class="author-info__description">to be a cool man!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cocochimp" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/cocochimp" target="_blank" title="Gitee"><i class="fab fa-github-alt"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_51634403" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2427886409@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81Collection"><span class="toc-number">1.</span> <span class="toc-text">1、Collection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-iterator-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 iterator 迭代器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81List-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">2、List 有序集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-ArrayList-%E2%AD%90"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 ArrayList ⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-LinkedList"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 LinkedList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Queue"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Queue</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81Set-%E6%97%A0%E5%BA%8F%E9%9B%86%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text">3、Set 无序集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-HashSet-%E2%AD%90"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 HashSet ⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-TreeSet"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 TreeSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-LinkedHashSet"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 LinkedHashSet</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81Map-%E9%94%AE%E5%80%BC%E9%9B%86%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text">4、Map 键值集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-HashMap-%E2%AD%90"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 HashMap ⭐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-TreeMap-LinkedHashMap"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 TreeMap &#x2F; LinkedHashMap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">5、工具类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-Collections"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Collections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-Arrays"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 Arrays</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E6%8B%93%E5%B1%95%E3%80%91"><span class="toc-number">6.</span> <span class="toc-text">【拓展】</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HashTable-ConcurrentHashMap"><span class="toc-number">6.1.</span> <span class="toc-text">HashTable&#x2F;ConcurrentHashMap</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="23种设计模式"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="23种设计模式"/></a><div class="content"><a class="title" href="/2024/01/18/23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="23种设计模式">23种设计模式</a><time datetime="2024-01-18T03:00:54.577Z" title="发表于 2024-01-18 11:00:54">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="JUC并发编程"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/juc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JUC并发编程"/></a><div class="content"><a class="title" href="/2024/01/18/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="JUC并发编程">JUC并发编程</a><time datetime="2024-01-18T03:00:43.042Z" title="发表于 2024-01-18 11:00:43">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="JVM虚拟机"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM虚拟机"/></a><div class="content"><a class="title" href="/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="JVM虚拟机">JVM虚拟机</a><time datetime="2024-01-18T03:00:28.866Z" title="发表于 2024-01-18 11:00:28">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java多线程"/></a><div class="content"><a class="title" href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程">Java多线程</a><time datetime="2024-01-18T03:00:10.504Z" title="发表于 2024-01-18 11:00:10">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/Java%E9%9B%86%E5%90%88/" title="Java集合"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java集合"/></a><div class="content"><a class="title" href="/2024/01/18/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><time datetime="2024-01-18T02:59:47.232Z" title="发表于 2024-01-18 10:59:47">2024-01-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By cocochimp</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

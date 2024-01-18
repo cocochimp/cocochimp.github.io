@@ -1,0 +1,503 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JVM虚拟机 | cocochimpBlog</title><meta name="author" content="cocochimp"><meta name="copyright" content="cocochimp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面试题：Java面试题|JVM必看15道面试题、Java虚拟机（JVM）面试题（51道含答案） 参数调优常用命令：  -Xms1024m -Xmx1024m -XX:+printGCDetails-XX:+PrintGCDetails 打印GC垃圾回收信息-XX:+HeapDumpOnOutOfMemoryError oom DUMP-Xms1m -Xmx8m -XX:+HeapDumpOnOu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM虚拟机">
+<meta property="og:url" content="http://example.com/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="cocochimpBlog">
+<meta property="og:description" content="面试题：Java面试题|JVM必看15道面试题、Java虚拟机（JVM）面试题（51道含答案） 参数调优常用命令：  -Xms1024m -Xmx1024m -XX:+printGCDetails-XX:+PrintGCDetails 打印GC垃圾回收信息-XX:+HeapDumpOnOutOfMemoryError oom DUMP-Xms1m -Xmx8m -XX:+HeapDumpOnOu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png">
+<meta property="article:published_time" content="2024-01-18T03:00:28.866Z">
+<meta property="article:modified_time" content="2024-01-18T03:26:27.050Z">
+<meta property="article:author" content="cocochimp">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JVM虚拟机',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-18 11:26:27'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="cocochimpBlog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/picture/"><i class="fa-fw iconfont icon-tupian"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-touxiang"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png')"><nav id="nav"><span id="blog-info"><a href="/" title="cocochimpBlog"><span class="site-name">cocochimpBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/picture/"><i class="fa-fw iconfont icon-tupian"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-touxiang"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JVM虚拟机</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-18T03:00:28.866Z" title="发表于 2024-01-18 11:00:28">2024-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T03:26:27.050Z" title="更新于 2024-01-18 11:26:27">2024-01-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JVM虚拟机"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>面试题：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/96756501">Java面试题|JVM必看15道面试题</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_30999361/article/details/124532763">Java虚拟机（JVM）面试题（51道含答案）</a></li>
+<li><strong>参数调优常用命令：</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-Xms1024m -Xmx1024m -XX:+printGCDetails</span><br><span class="line">-XX:+PrintGCDetails 打印GC垃圾回收信息</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError oom DUMP</span><br><span class="line">-Xms1m -Xmx8m -XX:+HeapDumpOnOutOfMemoryError</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>架构图：</strong></li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1694176140754-8081b021-2546-49f6-b3fe-91373acb6243.png#averageHue=%235f635f&clientId=ubb80744e-536d-4&from=drop&id=u7e29e382&originHeight=455&originWidth=839&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=99391&status=done&style=none&taskId=ucf2615d3-a337-4dd1-afb8-77f7a5561f7&title=" alt="45055573dd1200d7dc077dc4dda6b006.png"></p>
+<ul>
+<li><p>紫色区域：代表线程私有</p>
+</li>
+<li><p>黄色区域：代表线程共享</p>
+</li>
+<li><p><strong>常用的JDK的JVM参数</strong><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/841137#:~:text=4%E3%80%81JVM%E8%B0%83%E4%BC%98%E7%9A%84%E6%AD%A5%E9%AA%A4%201%20%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5%EF%BC%9A%E5%88%86%E6%9E%90GC%E6%97%A5%E5%BF%97%E5%8F%8Adump%E6%96%87%E4%BB%B6%EF%BC%8C%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E4%BC%98%E5%8C%96%EF%BC%8C%E7%A1%AE%E5%AE%9A%E7%93%B6%E9%A2%88%E9%97%AE%E9%A2%98%E7%82%B9%EF%BC%9B%202%20%E7%A1%AE%E5%AE%9AJVM%E8%B0%83%E4%BC%98%E9%87%8F%E5%8C%96%E7%9B%AE%E6%A0%87%EF%BC%9B%203%20%E7%A1%AE%E5%AE%9AJVM%E8%B0%83%E4%BC%98%E5%8F%82%E6%95%B0%EF%BC%88%E6%A0%B9%E6%8D%AE%E5%8E%86%E5%8F%B2JVM%E5%8F%82%E6%95%B0%E6%9D%A5%E8%B0%83%E6%95%B4%EF%BC%89%EF%BC%9B,4%20%E4%BE%9D%E6%AC%A1%E7%A1%AE%E5%AE%9A%E8%B0%83%E4%BC%98%E5%86%85%E5%AD%98%E3%80%81%E5%BB%B6%E8%BF%9F%E3%80%81%E5%90%9E%E5%90%90%E9%87%8F%E7%AD%89%E6%8C%87%E6%A0%87%EF%BC%9B%205%20%E5%AF%B9%E6%AF%94%E8%A7%82%E5%AF%9F%E8%B0%83%E4%BC%98%E5%89%8D%E5%90%8E%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%9B%206%20%E4%B8%8D%E6%96%AD%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%B0%83%E6%95%B4%EF%BC%8C%E7%9B%B4%E5%88%B0%E6%89%BE%E5%88%B0%E5%90%88%E9%80%82%E7%9A%84JVM%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%EF%BC%9B%207%20%E6%89%BE%E5%88%B0%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%8F%82%E6%95%B0%EF%BC%8C%E5%B0%86%E8%BF%99%E4%BA%9B%E5%8F%82%E6%95%B0%E5%BA%94%E7%94%A8%E5%88%B0%E6%89%80%E6%9C%89%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%B9%B6%E8%BF%9B%E8%A1%8C%E5%90%8E%E7%BB%AD%E8%B7%9F%E8%B8%AA%E3%80%82">JVM调优总结</a></p>
+<table>
+<thead>
+<tr>
+<th><strong>参数名称</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>默认值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-Xms</td>
+<td>初始堆大小</td>
+<td>内存的1&#x2F;64</td>
+</tr>
+<tr>
+<td>-Xmx</td>
+<td>最大堆大小</td>
+<td>内存的1&#x2F;4</td>
+</tr>
+<tr>
+<td>-Xss</td>
+<td>每个线程的堆栈大小</td>
+<td></td>
+</tr>
+<tr>
+<td>-Xmn</td>
+<td>年轻代大小</td>
+<td></td>
+</tr>
+<tr>
+<td>-XX:NewSize</td>
+<td>设置年轻代大小</td>
+<td></td>
+</tr>
+<tr>
+<td>-XX:PermSize</td>
+<td>设置持久代初始值</td>
+<td>内存的1&#x2F;64</td>
+</tr>
+<tr>
+<td>-XX:MetaspaceSize</td>
+<td>元空间大小</td>
+<td></td>
+</tr>
+<tr>
+<td>-XX:MaxMetaspaceSize</td>
+<td>最大元空间</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>Java编译流程</strong></p>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1690250016454-9157a16f-fe3a-4736-b1f8-dcf5f67bf748.png#averageHue=%23f6f6f3&clientId=u1129b39d-e584-4&from=drop&id=u752f6609&originHeight=390&originWidth=500&originalType=binary&ratio=1&rotation=0&showTitle=false&size=113681&status=done&style=none&taskId=udc3a1441-e6c7-4aea-8aeb-84409c4a92a&title=" alt="20190622154747801.png"></p>
+<h1 id="1、JVM体系结构"><a href="#1、JVM体系结构" class="headerlink" title="1、JVM体系结构"></a>1、JVM体系结构</h1><h2 id="1-1-JVM-常问面试题"><a href="#1-1-JVM-常问面试题" class="headerlink" title="1.1 JVM 常问面试题"></a>1.1 JVM 常问面试题</h2><ul>
+<li>请你谈谈你对JVM的理解？Java8虚拟机和之前的变化更新？java—&gt;class—-&gt;jvm</li>
+<li>什么是OOM 内存溢出？什么是栈溢出StackOverFlowError？ 怎么分析？</li>
+<li>JVM 的常用调优参数有哪些？</li>
+<li>内存快照如何抓取，怎么分析Dump文件？</li>
+<li>谈谈JVM中，类加载器你的认识？</li>
+</ul>
+<h2 id="待定"><a href="#待定" class="headerlink" title="待定"></a>待定</h2><p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1690249994483-38938d08-00e0-44dd-a927-7feb18ad45ab.png#averageHue=%23f6f6f3&clientId=u94d46e59-58c2-4&from=drop&id=u8f1514c6&originHeight=390&originWidth=500&originalType=binary&ratio=1.25&rotation=0&showTitle=true&size=113681&status=done&style=none&taskId=ucf9b4ece-0d10-4ce9-b6d3-b9f7719688f&title=Java%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B%E5%9B%BE" alt="Java代码编译流程图" title="Java代码编译流程图"></p>
+<blockquote>
+<p><strong>1、JVM的参数调优</strong></p>
+</blockquote>
+<ol>
+<li><strong>参数调优的目的：</strong>使用较小的内存占用来获得较高的吞吐量或者较低的延迟。JVM内存调优主要的目的是<strong>减少GC的频率</strong>和<strong>Full GC的次数</strong></li>
+<li><strong>JVM参数调优步骤</strong></li>
+</ol>
+<ul>
+<li><strong>CPU指标：</strong>【JProfiler、Arthas】<ul>
+<li>查看占用CPU最多的进程&#x2F;线程：top &#x2F; top -Hp pid</li>
+<li>查看哪个代码、方法占用CPU执行时间最长</li>
+</ul>
+</li>
+<li><strong>JVM内存指标：【</strong>Eclipse MAT、JConsole<strong>】</strong><ul>
+<li>查看当前 JVM 堆内存参数配置：ps -ef | grep java</li>
+<li>输出 Java 进程当前的 gc 情况：jstat -gc pid</li>
+</ul>
+</li>
+<li><strong>JVM GC指标</strong>：JVM 的 GC指标一般是从 GC 日志里面查看，默认的 GC 日志可能比较少，我们可以添加以下参数，来丰富我们的GC日志输出，方便我们定位问题。</li>
+</ul>
+<ol start="3">
+<li><strong>参数调优指令：</strong><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//常用的JDK的JVM参数形式</span></span><br><span class="line"> -Xms1024m -Xmx1024m -XX:+printGCDetails  <span class="comment">//打印GC垃圾回收信息</span></span><br><span class="line"> -Xms1m -Xmx8m -XX:+HeapDumpOnOutOfMemoryError  <span class="comment">//打印oom DUMP</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p><strong>堆内存相关参数</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-Xmx：设置Java堆的最大内存大小。</span><br><span class="line">-Xms：设置Java堆的初始内存大小。</span><br><span class="line">-XX:NewSize：设置新生代的初始大小。</span><br><span class="line">-XX:MaxNewSize：设置新生代的最大大小。</span><br><span class="line">-XX:NewRatio：设置新生代与老年代的比例。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>GC相关参数</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-XX:+UseSerialGC：启用串行垃圾回收器。</span><br><span class="line">-XX:+UseParallelGC：启用并行垃圾回收器。</span><br><span class="line">-XX:+UseConcMarkSweepGC：启用并发标记清除垃圾回收器。</span><br><span class="line">-XX:+UseG1GC：启用G1（Garbage First）垃圾回收器。</span><br><span class="line">-XX:MaxGCPauseMillis：设置最大垃圾回收停顿时间。</span><br><span class="line">-XX:GCTimeRatio：设置垃圾回收时间占总时间的比率。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注：GC相关参数打印</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintGCDetails // 打印GC的详细信息</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintGCDateStamps // 打印GC的时间戳</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintHeapAtGC // 在GC前后打印堆信息</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintTenuringDistribution // 打印Survivor区中各个年龄段的对象的分布信息</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintFlagsFinal // JVM启动时输出所有参数值，方便查看参数是否被覆盖</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintGCApplicationStoppedTime // 打印GC时应用程序的停止时间</span></span><br><span class="line"><span class="attr">-XX</span>:<span class="string">+PrintReferenceGC // 打印在GC期间处理引用对象的时间（仅在PrintGCDetails时启用）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>线程相关参数</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-Xss：设置线程栈的大小。</span><br><span class="line">-XX:ThreadStackSize：设置线程栈的大小。</span><br><span class="line">-XX:ParallelGCThreads：设置并行垃圾回收期间的线程数。</span><br><span class="line">-XX:ConcGCThreads：设置并发垃圾回收期间的线程数。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JIT（即时编译器）相关参数</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-XX:+TieredCompilation：启用分层编译。</span><br><span class="line">-XX:+UseFastAccessorMethods：启用快速访问器方法。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>内存区域相关参数</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">-XX:MaxDirectMemorySize：设置直接内存的最大大小。</span><br><span class="line">-XX:PermSize（在Java <span class="number">8</span>以前）/ -XX:MetaspaceSize（在Java <span class="number">8</span>及以后）：设置永久代（Java <span class="number">8</span>之前）/元空间（Java <span class="number">8</span>及以后）的初始大小。</span><br><span class="line">-XX:MaxPermSize（在Java <span class="number">8</span>以前）/ -XX:MaxMetaspaceSize（在Java <span class="number">8</span>及以后）：设置永久代（Java <span class="number">8</span>之前）/元空间（Java <span class="number">8</span>及以后）的最大大小。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="1-2-JVM-概念"><a href="#1-2-JVM-概念" class="headerlink" title="1.2 JVM 概念"></a>1.2 JVM 概念</h2><p>JVM是<strong>Java Virtual Machine</strong>（Java虚拟机）的缩写。<br>虚拟机是一种抽象化的计算机，通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机有自己完善的硬体架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。</p>
+<ol>
+<li><strong>JVM体系结构（重要）</strong></li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471088771-1d24840f-0fef-43fd-83c6-256dfb1aa05a.png#averageHue=%23f8f6f6&clientId=u8523fb37-6ea0-4&from=paste&id=uea27ac44&originHeight=838&originWidth=1198&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=220474&status=done&style=none&taskId=ue7447db7-279b-4c94-a456-c4d05f6e15a&title=" alt="image.png"><br><strong>JVM调优：99%都是在方法区和堆，大部分时间调堆。</strong> JNI（java native interface）本地方法接口<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471088911-6c75854d-695f-4d74-aaf3-9b5e35cccb5a.png#averageHue=%23e8e7e6&clientId=u8523fb37-6ea0-4&from=paste&id=u145cbd4a&originHeight=862&originWidth=868&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=328323&status=done&style=none&taskId=u4534fd04-c4d2-4d75-afa2-88e28535163&title=" alt="image.png"><br>作用：加载Class文件~ 如果new Student();（具体实例在堆里，引用变量名放栈里）<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471088919-226b3527-bbb6-4484-b76c-8bc66880e61d.png#averageHue=%23f6f6f6&clientId=u8523fb37-6ea0-4&from=paste&id=u21c69a84&originHeight=636&originWidth=847&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=96263&status=done&style=none&taskId=u3644700f-1a57-4a1c-b278-8c2a300c89c&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471089210-00613a8e-787f-418c-aade-ed3078aec2ca.png#averageHue=%23f5f5f5&clientId=u8523fb37-6ea0-4&from=paste&id=ua6ae1437&originHeight=572&originWidth=876&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=67274&status=done&style=none&taskId=ua0ed8c74-df83-41c1-a77b-f79c3c6747b&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471089866-bb2f8480-858a-4631-8d92-6ad64c479a1f.png#averageHue=%23ccc9c8&clientId=u8523fb37-6ea0-4&from=paste&id=u38700189&originHeight=474&originWidth=1183&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=293114&status=done&style=none&taskId=u441874e5-d16a-4a4c-80d1-16944ff0b42&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471090440-91243b73-35e5-474f-82a3-1d4202381b5d.png#averageHue=%23fafaf9&clientId=u8523fb37-6ea0-4&from=paste&id=u3bc0500e&originHeight=644&originWidth=1327&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=345211&status=done&style=none&taskId=u70c075f2-cdbf-491a-8fa2-2d0100f9d05&title=" alt="image.png"></p>
+<ol>
+<li>虚拟机自带的加载器</li>
+<li>启动类（根）加载器</li>
+<li>扩展类加载器</li>
+<li>应用程序加载器</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471091204-3c9b10b3-a59a-4515-bbe5-4f53f2de885c.png#averageHue=%23c5c8ab&clientId=u8523fb37-6ea0-4&from=paste&id=u3a235ec3&originHeight=819&originWidth=1624&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=721100&status=done&style=none&taskId=u39bbcd77-f8ac-4ee1-8d69-e4159566389&title=" alt="image.png"></p>
+<h1 id="2、双亲委派机制"><a href="#2、双亲委派机制" class="headerlink" title="2、双亲委派机制"></a>2、双亲委派机制</h1><p>第一步：类加载器收到类加载的请求<br>第二步：将这个请求向上委托给父类加载器去完成 ，一直向上委托，直到启动类加载器（Boot）<br>第三步：启动类加载器检查是否能够加载当前和这个类 ，能加载就结束，使用当前的加载器，否则，抛出异常，通知子加载器进行加载。<br>概念：当某个类加载器需要加载某个.class文件时，它首先把这个任务委托给他的上级类加载器，递归这个操作，如果上级的类加载器没有加载，自己才会去加载这个类。<br>例子：当一个Hello.class这样的文件要被加载时。不考虑我们自定义类加载器，首先会在AppClassLoader中检查是否加载过，如果有那就无需再加载了。如果没有，那么会拿到父加载器，然后调用父加载器的loadClass方法。父类中同理也会先检查自己是否已经加载过，如果没有再往上。注意这个类似递归的过程，直到到达Bootstrap classLoader之前，都是在检查是否加载过，并不会选择自己去加载。直到BootstrapClassLoader，已经没有父加载器了，这时候开始考虑自己是否能加载了，如果自己无法加载，会下沉到子加载器去加载，一直到最底层，如果没有任何加载器能加载，就会抛出ClassNotFoundException。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471090857-deba665b-8aca-4a65-a177-286bb2d7aede.png#averageHue=%23f8f7f7&clientId=u8523fb37-6ea0-4&from=paste&id=u0f19dd35&originHeight=690&originWidth=830&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=203843&status=done&style=none&taskId=uffaf7500-1e14-4878-94e6-dc16714a669&title=" alt="image.png"><br><strong>作用：</strong></p>
+<ol>
+<li>防止重复加载同一个.class。通过委托去向上面问一问，加载过了，就不用再加载一遍。保证数据安全。</li>
+<li>保证核心.class不能被篡改。通过委托方式，不会去篡改核心.class，即使篡改也不会去加载，即使加载也不会是同一个.class对象了。不同的加载器加载同一个.class也不是同一个Class对象。这样保证了Class执行安全。</li>
+</ol>
+<p>比如：如果有人想替换系统级别的类：String.java。篡改它的实现，在这种机制下这些系统的类已经被Bootstrap classLoader加载过了（为什么？因为当一个类需要加载的时候，最先去尝试加载的就是BootstrapClassLoader），所以其他类加载器并没有机会再去加载，从一定程度上防止了危险代码的植入。<br><strong>总结：</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471090769-e7d5e2d0-08bf-404f-869b-b0577c288c33.png#averageHue=%23c2dcb4&clientId=u8523fb37-6ea0-4&from=paste&id=u7f780647&originHeight=195&originWidth=980&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=118016&status=done&style=none&taskId=udb3f4fe3-46a8-4f50-a164-228f8ae34a7&title=" alt="image.png"></p>
+<h1 id="3、沙箱安全机制"><a href="#3、沙箱安全机制" class="headerlink" title="3、沙箱安全机制"></a>3、沙箱安全机制</h1><p>1、概述<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471091780-72b9f483-da2a-43fe-af07-2d9c8574f09c.png#averageHue=%23f7f7f6&clientId=u8523fb37-6ea0-4&from=paste&id=u7c25cd88&originHeight=697&originWidth=1210&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=635348&status=done&style=none&taskId=u2e44754a-806c-418f-afbf-d7eae3b1c8b&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471092305-dabe8c88-d984-40cf-8052-de7837e58a88.png#averageHue=%23f7f6f6&clientId=u8523fb37-6ea0-4&from=paste&id=u23aa90b0&originHeight=485&originWidth=1169&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=283705&status=done&style=none&taskId=uc6f05d11-6da6-4341-addd-19f93b65415&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471092810-7f3bc0f6-17af-491e-8cd4-fbea00a7c953.png#averageHue=%23f7f7f6&clientId=u8523fb37-6ea0-4&from=paste&id=u0917f13c&originHeight=637&originWidth=1193&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=328530&status=done&style=none&taskId=u8b415b55-ff9a-43a2-b5b6-81f5d49d66c&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471092873-90579a0a-455f-4a12-b5ea-feeb172dcceb.png#averageHue=%23f5f4f4&clientId=u8523fb37-6ea0-4&from=paste&id=uc4890f33&originHeight=495&originWidth=1185&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=414680&status=done&style=none&taskId=ua302640c-7900-4017-9b0a-4f2fd5d28eb&title=" alt="image.png"><br>2、组成沙箱的基本组件：</p>
+<ul>
+<li><strong>字节码校验器</strong>（bytecode verifier）：确保Java类文件.Class遵循Java语言规范。这样可以帮助Java程序实现内存保护。但并不是所有的类文件都会经过字节码校验，比如核心类。</li>
+<li>类装载器（class loader）：其中类装载器在3个方面对Java沙箱起作用<ul>
+<li>它防止恶意代码去干涉善意的代码；</li>
+<li>它守护了被信任的类库边界；</li>
+<li>它将代码归入保护域，确定了代码可以进行哪些操作。</li>
+</ul>
+</li>
+</ul>
+<p>虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每一个被装载的类将有一个名字，这个命名空间是由Java虚拟机为每一个类装载器维护的，它们互相之间甚至不可见。<br>类装载器采用的机制是<strong>双亲委派模式</strong>。</p>
+<ol>
+<li>从最内层JVM自带类加载器开始加载，外层恶意同名类得不到加载从而无法使用；</li>
+<li>由于严格通过包来区分了访问域，外层恶意的类通过内置代码也无法获得权限访问到内层类，破坏代码就自然无法生效。</li>
+</ol>
+<ul>
+<li><strong>存取控制器</strong>（access controller）：存取控制器可以控制核心API对操作系统的存取权限，而这个控制的策略设定，可以由用户指定。</li>
+<li><strong>安全管理器</strong>（security manager）：是核心API和操作系统之间的主要接口。实现权限控制，比存取控制器优先级高。</li>
+<li><strong>安全软件包</strong>（security package）：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：</li>
+</ul>
+<ol>
+<li>安全提供者</li>
+<li>消息摘要</li>
+<li>数字签名 keytools https(需要证书)</li>
+<li>加密</li>
+<li>鉴别</li>
+</ol>
+<h1 id="4、Native【-】"><a href="#4、Native【-】" class="headerlink" title="4、Native【*】"></a>4、Native【*】</h1><ul>
+<li>Native是核心，能把面试官唬住的东西。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471093056-1b8d9198-06c5-4a05-b39f-0576882eb1cb.png#averageHue=%23fbfaf4&clientId=u8523fb37-6ea0-4&from=paste&id=u8eac4a11&originHeight=500&originWidth=907&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=290114&status=done&style=none&taskId=u2eb1ccb8-382e-45dc-ab17-ff6aa4dbaad&title=" alt="image.png"><br>凡是带了native 关键字的，说明java的作用范围达不到了，得回去调用底层C语言的库！<br>凡是带了native 关键字的方法会进入<strong>本地方法栈</strong>，其它的是java栈</p>
+<ul>
+<li><strong>JNI：Java Native Interface（本地方法接口）</strong><ul>
+<li>调用本地方法接口（JNI）作用：扩展java的使用，融合不同的编程语言为java所用java诞生的初衷是<strong>融合C&#x2F;C++程序</strong>，C、C++横行，想要立足，必须要有调用C、C++的程序~它在内存区城中专门开辟了块标记区城:<strong>Native Method Stack</strong></li>
+</ul>
+</li>
+<li><strong>Native Method Stack（本地方法栈）</strong>：</li>
+</ul>
+<p>登记native 方法，在执行引擎（Execution Engine）执行的时候。通过JNI 加载**本地方法库(Native Libraies)**中的方法。<br>在企业级应用中少见，与硬件有关应用：java程序驱动打印机，系统管理生产设备等，掌握即可</p>
+<h1 id="5、PC寄存器"><a href="#5、PC寄存器" class="headerlink" title="5、PC寄存器"></a>5、PC寄存器</h1><ul>
+<li><strong>程序计数器: Program Counter Register</strong>：</li>
+</ul>
+<p>每个线程都有一个程序计数器，是线程私有的，就是一个指针， 指向方法区中的方法字节码 ( 用来存储指向下一条指令的地址， 也即将要执行的指令代码 )， 在执行引擎读取下一条指令,是一个非常小的内存空间，几乎可以忽略不计。</p>
+<h1 id="6、方法区"><a href="#6、方法区" class="headerlink" title="6、方法区"></a>6、方法区</h1><ul>
+<li><strong>Method Area方法区：</strong></li>
+</ul>
+<p>方法区是被所有线程共享，所有字段和方法字节码，以及一些特殊方法，如构造函数，接口代码也在此定义,简单说，所有定义的方法的信息都保存在该区域，此区域属于共享区间；<br><strong>静态变量、常量、类信息(构造方法、接口定义)、运行时的常量池存在方法区中，但是实例变量存在堆内存中，和方法区无关</strong>。<br>如：static，final，Class（类模板）, 常量池<br><strong>面试题：</strong>一张白纸，画出对象实例化过程的内存图。（主要是考你对JVM的理解）<img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471093156-afc3dab1-fafb-43c0-92d2-d95beef44b12.png#averageHue=%23f6f6f6&clientId=u8523fb37-6ea0-4&from=paste&id=u78a49b0e&originHeight=406&originWidth=578&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=52015&status=done&style=none&taskId=uf0ebfc88-20dd-4a06-a42d-b92c87dcf98&title=" alt="image.png"><br>类模板，常量池，引用的话进入左边，去引入真实的对象</p>
+<h1 id="7、栈"><a href="#7、栈" class="headerlink" title="7、栈"></a>7、栈</h1><ol>
+<li>栈：数据结构程序&#x3D;数据结构+算法：持续学习<del>程序&#x3D;框架+业务逻辑：吃饭</del></li>
+<li>栈：<strong>先进后出、后进先出</strong>：桶队列：先进先出 ( FIFO )：管喝多了吐就是栈，吃多了拉就是队列为什么main() 先执行，最后结束? （因为一开始<strong>mian()先压入栈</strong>）</li>
+<li>栈：栈内存，主管程序的运行，生命周期和线程同步;线程结束，栈内存也就是释放，<strong>对于栈来说，不存在垃圾回收问题</strong>一旦线程结束，栈就Over!</li>
+<li>栈存放：8大基本类型+对象引用+实例的方法栈运行原理：栈帧（局部变量表+操作数栈）<strong>每调用一个方法都有一个栈帧</strong>栈满了 main()无法结束，会抛出错误：<strong>栈溢出 StackOverflowError</strong></li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471093654-23e38158-9b74-48c9-a4ae-44d2276ae0ef.png#averageHue=%23d9d8d7&clientId=u8523fb37-6ea0-4&from=paste&id=u6f72fc57&originHeight=447&originWidth=435&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=51658&status=done&style=none&taskId=u10e17da8-7484-42a9-9463-baeb76dc7d4&title=" alt="image.png"><br><strong>栈帧图：</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471094236-3c801450-244c-44a0-b088-144052f9850c.png#averageHue=%23ebeae0&clientId=u8523fb37-6ea0-4&from=paste&id=u0ae419e7&originHeight=762&originWidth=947&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=212316&status=done&style=none&taskId=u4c58f5b8-7144-4675-b322-4ea7519c547&title=" alt="image.png"><br>栈 + 堆 + 方法区：交互关系<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471094683-8567cc62-ddd1-4bf5-9d29-da922c17fe04.png#averageHue=%23d0d1ce&clientId=u8523fb37-6ea0-4&from=paste&id=u28fdb859&originHeight=622&originWidth=1010&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=174389&status=done&style=none&taskId=u4d78fdb7-9f11-4baf-9219-4978824ba43&title=" alt="image.png"></p>
+<h1 id="8、堆【-】"><a href="#8、堆【-】" class="headerlink" title="8、堆【*】"></a>8、堆【*】</h1><p>Heap：一个JVM只有一个堆内存，堆的大小是可以调节的。<br>类加载器读取了类文件后，一般会把什么东西放到堆中？<br>类，方法，常量，变量~，保存所有引用类型的真实对象</p>
+<ul>
+<li>堆内存细分3个区域：<ul>
+<li>新生区（伊甸园区） Young&#x2F;new</li>
+<li>养老区 old</li>
+<li>永久区 Perm</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471094705-d27052f6-5750-42c7-b615-7673b456a70f.png#averageHue=%23f8f8f8&clientId=u8523fb37-6ea0-4&from=paste&id=u29dc4e99&originHeight=657&originWidth=896&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=107806&status=done&style=none&taskId=ud46b7fde-5f23-4089-a155-f2a760cedb6&title=" alt="image.png"><br><strong>GC垃圾回收，主要是在伊甸园区和养老区~</strong><br><strong>假设内存满了，报错OOM，堆内存不够！</strong>OutOfMemoryError:Java heap space<br><strong>在JDK8以后，永久存储区改了个名字(元空间)</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471094973-9e19a358-b8ac-4e46-b6d7-bd198e854499.png#averageHue=%23f2ecde&clientId=u8523fb37-6ea0-4&from=paste&id=u7b2e556d&originHeight=704&originWidth=1451&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=449152&status=done&style=none&taskId=u989a1e83-94f2-422c-a18f-86e5b347279&title=" alt="image.png"></p>
+<h2 id="8-1-概念"><a href="#8-1-概念" class="headerlink" title="8.1 概念"></a>8.1 概念</h2><blockquote>
+<p>1、新生区、老年区、永久区</p>
+</blockquote>
+<p><strong>新生区</strong>（伊甸园+幸存者区*2）</p>
+<ul>
+<li>类诞生和成长甚至死亡的地方；</li>
+<li>伊甸园，所有对象都是在伊甸园区new出来的！</li>
+<li>幸存者区（0, 1），<strong>轻GC</strong>定期清理伊甸园，活下来的放入幸 存者区，幸存者区满了之后<strong>重GC</strong>清理 伊甸园+幸存者区，活下来的放入养老区。都满了就报OOM。</li>
+</ul>
+<p>真理：经过研究，99%的对象都是临时对象！直接被清理了<br><strong>老年区：</strong> 新生区剩下来的，轻GC杀不死了。<br><strong>永久区：</strong><br>这个区域常驻内存，用来存放JDK自身携带的Class对象，Interface元数据，存储的是java运行时的一些环境或类信息，<strong>该区域不存在垃圾回收GC</strong>。<strong>关闭虚拟机就会释放这个内存。</strong></p>
+<ul>
+<li>jdk1.6之前：永久代，常量池在方法区</li>
+<li>jdk1.7：永久代，但是慢慢退化了（去永久代）常量池在堆中</li>
+<li>jdk1.8之后：无永久代，常量池在元空间</li>
+</ul>
+<p>一个启动类,加载了大量的第三方jar包。Tomcat部署了太多的应用，大量动态生成的反射类。不断的被加载。直到内存满，就会出现OOM。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471094733-789f7291-db4f-4163-9b18-7d330bb53515.png#averageHue=%2393edf1&clientId=u8523fb37-6ea0-4&from=paste&id=u82142d40&originHeight=313&originWidth=1021&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=79179&status=done&style=none&taskId=ua03747a9-6bbf-4db1-a148-9491740701b&title=" alt="image.png"><br>方法区又称非堆(non-heap)，本质还是堆，只是为了区分概念。<br><strong>元空间逻辑上存在，物理上并不存在。</strong></p>
+<ul>
+<li>测试JVM分配的堆内存</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471095883-9fa9a1b9-8949-4084-890a-37023e7f7a0c.png#averageHue=%23f4f2e7&clientId=u8523fb37-6ea0-4&from=paste&id=ub7cf62e2&originHeight=517&originWidth=1144&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=330106&status=done&style=none&taskId=uce44af22-2069-404d-a365-bbd280165bd&title=" alt="image.png"></p>
+<ul>
+<li>堆内存分配结论：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471095750-bfa118d7-171e-4b57-9691-e51e0efcd951.png#averageHue=%23fefefb&clientId=u8523fb37-6ea0-4&from=paste&id=u17f4ff77&originHeight=130&originWidth=684&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=40429&status=done&style=none&taskId=u6a7cd05f-ccc4-45ee-ba11-35c088804a8&title=" alt="image.png"></p>
+<ul>
+<li><strong>参数调优</strong></li>
+</ul>
+<p> -Xms1024m -Xmx1024m -XX:+printGCDetails<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471095951-f07249db-3ad1-4f74-aba4-74af4da71d89.png#averageHue=%23f3f0ef&clientId=u8523fb37-6ea0-4&from=paste&id=u09cbb12f&originHeight=477&originWidth=707&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=135601&status=done&style=none&taskId=ua78a9580-4a91-466d-ab12-1e3c2ff6222&title=" alt="image.png"></p>
+<ul>
+<li>参数调优结果</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471096464-d02dccff-b779-44a1-adb0-adda7b2c77d4.png#averageHue=%23e7e5dd&clientId=u8523fb37-6ea0-4&from=paste&id=u1d28a805&originHeight=518&originWidth=941&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=435106&status=done&style=none&taskId=u89c0b09a-4884-4b1d-8751-063f8d9049a&title=" alt="image.png"><br><strong>扩展：</strong><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471096793-d3cc4e48-9586-435b-97a0-e245a709b251.png#averageHue=%23f3f0ed&clientId=u8523fb37-6ea0-4&from=paste&id=u115fe0ed&originHeight=256&originWidth=841&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=36698&status=done&style=none&taskId=u0d302ec5-80d5-4ce6-ac93-96a999b9bc5&title=" alt="image.png"><br>一句话：常量池一直在方法区，其中的字符串池 JDK1.7之后保存到了堆中。</p>
+<h2 id="8-2-堆内存调优"><a href="#8-2-堆内存调优" class="headerlink" title="8.2 堆内存调优"></a>8.2 堆内存调优</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//返回虚拟机试图使用的最大内存</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">max</span> <span class="operator">=</span> Runtime.getRuntime().maxMemory(); <span class="comment">//字节 1024*1024</span></span><br><span class="line">    <span class="comment">//返回jvm初始化的总内存</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">total</span> <span class="operator">=</span> Runtime.getRuntime().totalMemory();</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;max=&quot;</span>+max+<span class="string">&quot;字节\t&quot;</span>+(max/(<span class="type">double</span>)<span class="number">1024</span>/<span class="number">1024</span>+<span class="string">&quot;MB&quot;</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;total=&quot;</span>+total+<span class="string">&quot;字节\t&quot;</span>+(total/(<span class="type">double</span>)<span class="number">1024</span>/<span class="number">1024</span>+<span class="string">&quot;MB&quot;</span>));</span><br><span class="line">    <span class="comment">/* 运行后：</span></span><br><span class="line"><span class="comment">max=1866465280字节   1780.0MB</span></span><br><span class="line"><span class="comment">total=126877696字节  121.0MB</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="comment">//默认情况下，分配的总内存占电脑内存1/4 初始化1/64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>面试题：报OOM怎么办？<ul>
+<li>尝试扩大堆内存，如果还报错，说明有死循环代码 或垃圾代码</li>
+<li>分析内存，看一下哪个地方有问题（专业工具）</li>
+</ul>
+</li>
+<li>扩大内存方法：<ul>
+<li>Edit Configration&gt;add VM option&gt;</li>
+<li>输入：-Xms1024m -Xmx1024m -XX:+PrintGCDetails</li>
+</ul>
+</li>
+</ul>
+<p>再次运行：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471097498-fee8da77-17f9-41c8-bb64-82f260f07ee7.png#averageHue=%23f0ebe8&clientId=u8523fb37-6ea0-4&from=paste&id=u18201505&originHeight=392&originWidth=1272&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=63558&status=done&style=none&taskId=u9ca2fd85-e6fa-45d9-a083-881c194208f&title=" alt="image.png"><br><strong>新生区+养老区</strong>：305664K+699392K&#x3D;1005056K &#x3D; <strong>981.5M</strong><br>说明元空间物理并不存在。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//-Xms8m -Xmx8m -XX:+PrintGCDetails</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;kuangshensayjava&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        str += str + <span class="keyword">new</span> <span class="title class_">Random</span>().nextInt(<span class="number">888888888</span>)+ <span class="keyword">new</span> <span class="title class_">Random</span>().nextInt(<span class="number">21_0000_0000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471097578-f8854311-f26e-4775-a686-a31008af7577.png#averageHue=%23e9e5e1&clientId=u8523fb37-6ea0-4&from=paste&id=u43ac0ef9&originHeight=701&originWidth=1239&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=147718&status=done&style=none&taskId=u4b3027de-b8e0-49d3-8aa7-d7e0c618e95&title=" alt="image.png"></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="8-3-Jprofiler"><a href="#8-3-Jprofiler" class="headerlink" title="8.3 Jprofiler"></a>8.3 Jprofiler</h2><p>在一个项目中，突然出现了OOM故障，该如何排除，研究为什么出错~</p>
+<ul>
+<li>能够看到代码第几行出错：内存快照分析工具，MAT，Jprofiler</li>
+<li>Debug，一行行分析代码！</li>
+</ul>
+<p>MAT，Jprofiler作用：</p>
+<ul>
+<li>分析Dump内存文件，快速定位内存泄漏；</li>
+<li>获得堆中的数据</li>
+<li>获得大的对象<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//-Xms 设置初始化内存分配大小 默认1/64</span></span><br><span class="line"><span class="comment">//-Xmx 设置最大分配内存，默认1/4</span></span><br><span class="line"><span class="comment">//-XX:+PrintGCDetails 打印GC垃圾回收信息</span></span><br><span class="line"><span class="comment">//-XX:+HeapDumpOnOutOfMemoryError oom DUMP</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//-Xms1m -Xmx8m -XX:+HeapDumpOnOutOfMemoryError</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo03</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">byte</span>[] array = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1</span>*<span class="number">1024</span>*<span class="number">1024</span>]; <span class="comment">//1m</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ArrayList&lt;Demo03&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">                list.add(<span class="keyword">new</span> <span class="title class_">Demo03</span>()); <span class="comment">//不停地把创建对象放进列表</span></span><br><span class="line">                count = count + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;count: &quot;</span>+count);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471097564-643b2c40-7199-4e4c-857a-72c315b0989c.png#averageHue=%23f5f3f1&clientId=u8523fb37-6ea0-4&from=paste&id=u44e8e7de&originHeight=448&originWidth=1037&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=76680&status=done&style=none&taskId=uc8f515f5-9268-4cae-994d-440493d085a&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471098524-cea360a8-8b25-46f4-a393-977fcbe6c6b1.png#averageHue=%23f5f3f2&clientId=u8523fb37-6ea0-4&from=paste&id=u5e0097c1&originHeight=1021&originWidth=1482&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=447781&status=done&style=none&taskId=uce471880-269d-4c22-a0b0-b6e37ee5574&title=" alt="image.png"></li>
+</ul>
+<h1 id="9、GC：垃圾回收【-】"><a href="#9、GC：垃圾回收【-】" class="headerlink" title="9、GC：垃圾回收【*】"></a>9、GC：垃圾回收【*】</h1><p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471098260-36a7cfbb-fc3c-4ec9-904c-fba2f8e366c8.png#averageHue=%23f5f2f2&clientId=u8523fb37-6ea0-4&from=paste&id=uaa600c95&originHeight=642&originWidth=1002&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=61238&status=done&style=none&taskId=u8c7d27a8-f5dd-4fc5-948a-2e822fc2704&title=" alt="image.png"><br>JVM在进行GC时，并不是对这三个区域统一回收。大部分时候回收的是新生代</p>
+<ul>
+<li>新生代</li>
+<li>幸存区</li>
+<li>老年区</li>
+</ul>
+<p>GC两种：轻GC，重GC (Full GC，全局GC)<br>关于GC面试题：</p>
+<ul>
+<li>JVM的内存模型和分区~详细到每个分区放什么？</li>
+<li>堆里面的分区有哪些？Eden, from, to, 老年区，说说它们的特点！</li>
+<li>GC算法有哪些？怎么用的？<ul>
+<li><strong>标记清除法</strong>，标记整理，<strong>复制算法</strong>，分代收集法。</li>
+<li>引用计数法。</li>
+</ul>
+</li>
+<li>轻GC与重GC分别在什么时候发生？</li>
+</ul>
+<p><strong>引用计数法</strong>：一般JVM不用，大型项目对象太多了<br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471098723-1b57de91-52f2-49ed-8a0f-fd849f467ac0.png#averageHue=%23f1f1f1&clientId=u8523fb37-6ea0-4&from=paste&id=ua028a3a3&originHeight=336&originWidth=811&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=53578&status=done&style=none&taskId=u779ed00e-1039-4b99-bd56-3837c878095&title=" alt="image.png"></p>
+<h2 id="9-1-复制算法"><a href="#9-1-复制算法" class="headerlink" title="9.1 复制算法"></a>9.1 复制算法</h2><ul>
+<li>-XX:MaxTenuringThreshold&#x3D;15 设置进入老年代的存活次数条件</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471099207-ef281c2f-8ffd-4f65-a801-69a162c0ae7d.png#averageHue=%23f7f4da&clientId=u8523fb37-6ea0-4&from=paste&id=u56b6f573&originHeight=731&originWidth=825&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=223680&status=done&style=none&taskId=u402d0fb9-a9d2-4378-8fd9-2666f2082f8&title=" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471099596-41a3b326-56d9-4d97-b17c-91d7c86dc183.png#averageHue=%23d4e867&clientId=u8523fb37-6ea0-4&from=paste&id=u3114a0c6&originHeight=559&originWidth=1206&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=181152&status=done&style=none&taskId=ua26b4b9c-f9ff-4f51-ad94-53de847e047&title=" alt="image.png"></p>
+<ul>
+<li>好处：没有内存的碎片，内存效率高</li>
+<li>坏处：浪费了内存空间（一个幸存区永远是空的）；假设对象100%存活，复制成本很高。</li>
+</ul>
+<p>复制算法最佳使用场景：对象存活度较低 的时候，<strong>新生区</strong>~。</p>
+<h2 id="9-2-标记清除算法"><a href="#9-2-标记清除算法" class="headerlink" title="9.2 标记清除算法"></a>9.2 标记清除算法</h2><ul>
+<li>标记清除</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471099787-7d7bb468-6819-475c-97b5-4157f23cec2f.png#averageHue=%23f6f4d6&clientId=u8523fb37-6ea0-4&from=paste&id=uf96f152f&originHeight=495&originWidth=757&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=110011&status=done&style=none&taskId=ue88f3b21-42d5-4085-8680-b3914417a14&title=" alt="image.png"></p>
+<ul>
+<li>优点：不需要额外空间，优化了复制算法。</li>
+<li>缺点：两次扫描，严重浪费时间，会产生内存碎片。</li>
+</ul>
+<p>标记压缩（标记整理）<strong>：再优化</strong></p>
+<ul>
+<li>三部曲：标记–清除–压缩</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471100863-f2fb021f-75d2-473e-b1af-3e3ad783321b.png#averageHue=%23f9f8ea&clientId=u8523fb37-6ea0-4&from=paste&id=u8fd2e1c6&originHeight=768&originWidth=1427&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=309419&status=done&style=none&taskId=uaf93fb83-6d1b-49c5-8fd6-455f9cb66db&title=" alt="image.png"><br>标记清除压缩：再优化</p>
+<ul>
+<li>每标记清除几次就压缩一次，或者内存碎片积累到一定程度就压缩。</li>
+</ul>
+<h2 id="9-3-总结"><a href="#9-3-总结" class="headerlink" title="9.3 总结"></a>9.3 总结</h2><p>内存效率：复制算法&gt;标记清除算法&gt;标记压缩算法（时间复杂度）<br>内存整齐度：复制算法&#x3D;标记压缩算法&gt;标记清除算法<br>内存利用率：标记压缩算法&#x3D;标记清除算法&gt;复制算法<br>难道没有最优算法吗？<br>答案：无，没有最好的算法，只有合适的算法（GC也被称为<strong>分代收集算法</strong>）。</p>
+<ul>
+<li>年轻代：存活率低，用<strong>复制算法</strong>。</li>
+<li>老年代：存活率高，区域大，用<strong>标记-清除-压缩</strong>。</li>
+</ul>
+<p>参考和研究：《深入理解Java虚拟机》</p>
+<h1 id="10、-JMM"><a href="#10、-JMM" class="headerlink" title="10、 JMM"></a>10、 JMM</h1><ol>
+<li>什么是JMM? ：百度java内存模型 Java Memory Model</li>
+<li>它干嘛的？ 学习途径：官方，其他人的博客，教学视频<a target="_blank" rel="noopener" href="https://www.sohu.com/a/420276955_612370">https://www.sohu.com/a/420276955_612370</a>作用：缓存一致性协议，用于定义数据读写的规则。JMM定义了线程工作内存和主内存之间的抽象关系：线程之间的私有变量存储在主内存中， 每个线程都有一个私有的本地变量。<img src="https://cdn.nlark.com/yuque/0/2023/png/35382725/1686471100923-a7709547-de53-400b-8f9f-5c1232a1a0b2.png#averageHue=%23efefef&clientId=u8523fb37-6ea0-4&from=paste&id=u3b6d2212&originHeight=290&originWidth=650&originalType=url&ratio=1.25&rotation=0&showTitle=false&size=46621&status=done&style=none&taskId=u7b069c0a-e124-4f64-8af5-8963313e7dd&title=" alt="image.png">解决共享对象可见性这个问题:volilate</li>
+<li>如何学会它？</li>
+</ol>
+<ul>
+<li>lock(锁定)，作用于<strong>主内存</strong>中的变量，把变量标识为线程独占的状态。</li>
+<li>read(读取)，作用于<strong>主内存</strong>的变量，把变量的值从主内存传输到线程的工作内存中，以便下一步的load操作使用。</li>
+<li>load(加载)，作用于<strong>工作内存</strong>的变量，把read操作主存的变量放入到工作内存的变量副本中。</li>
+<li>use(使用)，作用于<strong>工作内存</strong>的变量，把工作内存中的变量传输到执行引擎，每当虚拟机遇到一个需要使用到变量的值的字节码指令时将会执行这个操作。</li>
+<li>assign(赋值)，作用于<strong>工作内存</strong>的变量，它把一个从执行引擎中接受到的值赋值给工作内存的变量副本中，每当虚拟机遇到一个给变量赋值的字节码指令时将会执行这个操作。</li>
+<li>store(存储)，作用于<strong>工作内存</strong>的变量，它把一个从工作内存中一个变量的值传送到主内存中，以便后续的write使用。</li>
+<li>write(写入)：作用于<strong>主内存</strong>中的变量，它把store操作从工作内存中得到的变量的值放入主内存的变量中。</li>
+<li>unlock(解锁)：作用于<strong>主内存</strong>的变量，它把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定。</li>
+</ul>
+<p>我再补充一下JMM对8种内存交互操作制定的规则吧：</p>
+<ul>
+<li>不允许read、load、store、write操作之一单独出现，也就是read操作后必须load，store操作后必须write。</li>
+<li>不允许线程丢弃他最近的assign操作，即工作内存中的变量数据改变了之后，必须告知主存。</li>
+<li>不允许线程将没有assign的数据从工作内存同步到主内存。</li>
+<li>一个新的变量必须在主内存中诞生，不允许工作内存直接使用一个未被初始化的变量。就是对变量实施use、store操作之前，必须经过load和assign操作。</li>
+<li>一个变量同一时间只能有一个线程对其进行lock操作。多次lock之后，必须执行相同次数unlock才可以解锁。</li>
+<li>如果对一个变量进行lock操作，会清空所有工作内存中此变量的值。在执行引擎使用这个变量前，必须重新load或assign操作初始化变量的值。</li>
+<li>如果一个变量没有被lock，就不能对其进行unlock操作。也不能unlock一个被其他线程锁住的变量。</li>
+<li>一个线程对一个变量进行unlock操作之前，必须先把此变量同步回主内存。再补充一下JMM对8种内存交互操作制定的规则吧：</li>
+<li>不允许read、load、store、write操作之一单独出现，也就是read操作后必须load，store操作后必须write。</li>
+<li>不允许线程丢弃他最近的assign操作，即工作内存中的变量数据改变了之后，必须告知主存。</li>
+<li>不允许线程将没有assign的数据从工作内存同步到主内存。</li>
+<li>一个新的变量必须在主内存中诞生，不允许工作内存直接使用一个未被初始化的变量。就是对变量实施use、store操作之前，必须经过load和assign操作。</li>
+<li>一个变量同一时间只能有一个线程对其进行lock操作。多次lock之后，必须执行相同次数unlock才可以解锁。</li>
+<li>如果对一个变量进行lock操作，会清空所有工作内存中此变量的值。在执行引擎使用这个变量前，必须重新load或assign操作初始化变量的值。</li>
+<li>如果一个变量没有被lock，就不能对其进行unlock操作。也不能unlock一个被其他线程锁住的变量。</li>
+<li>一个线程对一个变量进行unlock操作之前，必须先把此变量同步回主内存。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">cocochimp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/">http://example.com/2024/01/18/JVM虚拟机/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">cocochimpBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="post_share"><div class="social-share" data-image="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/18/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="JUC并发编程"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/juc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JUC并发编程</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程"><img class="cover" src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java多线程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">cocochimp</div><div class="author-info__description">to be a cool man!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/cocochimp" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://gitee.com/cocochimp" target="_blank" title="Gitee"><i class="fab fa-github-alt"></i></a><a class="social-icon" href="https://blog.csdn.net/m0_51634403" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="mailto:2427886409@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81JVM%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">1、JVM体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-JVM-%E5%B8%B8%E9%97%AE%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 JVM 常问面试题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%85%E5%AE%9A"><span class="toc-number">1.2.</span> <span class="toc-text">待定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-JVM-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.</span> <span class="toc-text">1.2 JVM 概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">2、双亲委派机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E6%B2%99%E7%AE%B1%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">3、沙箱安全机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81Native%E3%80%90-%E3%80%91"><span class="toc-number">4.</span> <span class="toc-text">4、Native【*】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81PC%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text">5、PC寄存器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6%E3%80%81%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-number">6.</span> <span class="toc-text">6、方法区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7%E3%80%81%E6%A0%88"><span class="toc-number">7.</span> <span class="toc-text">7、栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E3%80%81%E5%A0%86%E3%80%90-%E3%80%91"><span class="toc-number">8.</span> <span class="toc-text">8、堆【*】</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E6%A6%82%E5%BF%B5"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E5%A0%86%E5%86%85%E5%AD%98%E8%B0%83%E4%BC%98"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 堆内存调优</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">8.2.1.</span> <span class="toc-text"></span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-Jprofiler"><span class="toc-number">8.3.</span> <span class="toc-text">8.3 Jprofiler</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9%E3%80%81GC%EF%BC%9A%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E3%80%90-%E3%80%91"><span class="toc-number">9.</span> <span class="toc-text">9、GC：垃圾回收【*】</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="toc-number">9.1.</span> <span class="toc-text">9.1 复制算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="toc-number">9.2.</span> <span class="toc-text">9.2 标记清除算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E6%80%BB%E7%BB%93"><span class="toc-number">9.3.</span> <span class="toc-text">9.3 总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10%E3%80%81-JMM"><span class="toc-number">10.</span> <span class="toc-text">10、 JMM</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="23种设计模式"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="23种设计模式"/></a><div class="content"><a class="title" href="/2024/01/18/23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="23种设计模式">23种设计模式</a><time datetime="2024-01-18T03:00:54.577Z" title="发表于 2024-01-18 11:00:54">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="JUC并发编程"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/juc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JUC并发编程"/></a><div class="content"><a class="title" href="/2024/01/18/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="JUC并发编程">JUC并发编程</a><time datetime="2024-01-18T03:00:43.042Z" title="发表于 2024-01-18 11:00:43">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="JVM虚拟机"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/JVM.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM虚拟机"/></a><div class="content"><a class="title" href="/2024/01/18/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="JVM虚拟机">JVM虚拟机</a><time datetime="2024-01-18T03:00:28.866Z" title="发表于 2024-01-18 11:00:28">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/%E5%A4%9A%E7%BA%BF%E7%A8%8B.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java多线程"/></a><div class="content"><a class="title" href="/2024/01/18/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="Java多线程">Java多线程</a><time datetime="2024-01-18T03:00:10.504Z" title="发表于 2024-01-18 11:00:10">2024-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/18/Java%E9%9B%86%E5%90%88/" title="Java集合"><img src="https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/Java%E9%9B%86%E5%90%88.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java集合"/></a><div class="content"><a class="title" href="/2024/01/18/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><time datetime="2024-01-18T02:59:47.232Z" title="发表于 2024-01-18 10:59:47">2024-01-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By cocochimp</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

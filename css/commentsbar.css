@@ -7,9 +7,9 @@
    pointer-events: none !important;
 }
 /* top-img���� */
-#page-header {
+/* #page-header {
   background: transparent !important;
-}
+} */
 /* ����С��530px�����ŷ� */
 @media screen and (max-width: 530px) {
   #computer {
@@ -126,17 +126,17 @@
   pointer-events: none;
 }
 
-.bottomhr {
+/* .bottomhr {
   font-size: 12px;
   text-align: center;
   color: #999;
-}
+} */
 /* ҹ��ģʽ */
-[data-theme='dark']
+/* [data-theme='dark']
   .formmain {
     background: rgb(50, 50, 50);
   }
 [data-theme='dark']
   .comments {
     background: rgba(90, 90, 90, 0.8)
-  }
+  } */
