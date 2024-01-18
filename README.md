@@ -53,7 +53,7 @@ cover:  #封面
 
 - [https://cocochimp.github.io/](https://cocochimp.github.io/)
 
-![image.png](https://cdn.nlark.com/yuque/0/2024/png/35382725/1705559041399-b8787abf-da60-4371-85ab-deb538623a8c.png#averageHue=%2347744a&clientId=uebc2fd6e-6c00-4&from=paste&height=846&id=uae329942&originHeight=1692&originWidth=3018&originalType=binary&ratio=2&rotation=0&showTitle=false&size=5639566&status=done&style=none&taskId=u36499c6a-d30a-43cb-85ad-9643ac5946a&title=&width=1509)
+![image.png](https://pet-diary.oss-cn-beijing.aliyuncs.com/2023-12/test1.png)
 
 ## 文章 archives
 
